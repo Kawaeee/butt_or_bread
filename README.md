@@ -8,3 +8,5 @@
 ## Datasets
 - Bread dataset was acquired from the combination of Google Open Images V5 + Google Images search
 - Corgi dataset was acquired from the combination of ImageNet + Stanford Dogs + Google Images search
+
+After that, manually remove incorrect image and apply Perceptual Hashing to get rid of duplication image.
