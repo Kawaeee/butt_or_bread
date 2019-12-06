@@ -23,3 +23,23 @@
       * Train: 2140 images
       * Valid: 268 images
       * Test: 267 images
+
+## Model
+- ResNet-152
+
+## Results
+|Set|Accuracy|Loss|
+|:--|:--|:--|
+|Train| - ||
+|Valid| - ||
+|Test| - ||
+
+## Hyperparameters and configurations
+
+| Configuration | Value |
+|:--|:--|
+|Epoch | 2 |
+|Batch Size | 32 |
+|Optimizer | ADAM |
+
+## Reproduction
