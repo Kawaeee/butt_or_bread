@@ -1,4 +1,10 @@
+h5py
 ImageHash
+matplotlib
+numpy
 tqdm
-pillow
 pandas
+pillow
+tensorflow
+torch
+torchvision
