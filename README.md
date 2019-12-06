@@ -1,13 +1,16 @@
 # Corgi butt or loaf of bread? 
-- This repository will tackle the meme of "Corgi butt or loaf of bread?" using deep learning model to classify it.
+
+* We have seen a popular meme that tries to represent the similarity shared between animal and food such as **"Shiba Inu dog or toasted marshmallow?"** So, We would like to develop the deep learning model that removes the uncertainty of an image that could be like **a loaf of bread or corgi butt**. But for sure, We just do it for fun.
+
+* We used PyTorch framework with GPU to develop our model using Google Colaboratory.
 
 <img src="https://img-9gag-fun.9cache.com/photo/aYeP537_700bwp_v2.webp" width="500" height="500">
 
 #### Reference: https://9gag.com/gag/aYeP537/corgi-butt-or-loaf-of-bread
 
 ## Datasets
-- Bread dataset was acquired from the combination of Google Open Images V5 + Google Images search
-- Corgi dataset was acquired from the combination of ImageNet + Stanford Dogs + Google Images search
+* Bread dataset was acquired from the combination of Google Open Images V5 + Google Images search
+* Corgi dataset was acquired from the combination of ImageNet + Stanford Dogs + Google Images search
 
   **After that, we manually remove incorrect images and apply Perceptual Hashing to get rid of duplication images.**
 
