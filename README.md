@@ -34,6 +34,8 @@
 |**Valid**|0.0132|0.9969|
 |**Test**|-|0.9968|
 
+#### You can download our model weight here: [Google Drive](https://drive.google.com/file/d/1DVsTz-gx8NvdMaFseF26CYzE6uVLPAL4/view?usp=sharing)
+
 ## Hyperparameters and configurations
 
 | Configuration | Value |
