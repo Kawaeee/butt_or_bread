@@ -3,8 +3,6 @@ ImageHash
 matplotlib
 numpy
 tqdm
-pandas
 pillow
-tensorflow
 torch
 torchvision
