@@ -11,7 +11,7 @@ from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch.optim as optimizer
 
-dataset_path = '/data/'
+dataset_path = '/data'
 
 # https://pytorch.org/docs/stable/torchvision/models.html
 
