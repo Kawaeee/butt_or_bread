@@ -23,23 +23,37 @@
       * Train: 2140 images
       * Valid: 268 images
       * Test: 267 images
-
+      
 ## Model
 - ResNet-152
 
 ## Results
-|Set|Accuracy|Loss|
+|Set|Loss|Accuracy|
 |:--|:--|:--|
-|Train| - ||
-|Valid| - ||
-|Test| - ||
+|**Train**|0.0077|0.9977|
+|**Valid**|0.0132|0.9969|
+|**Test**|-|0.9968|
 
 ## Hyperparameters and configurations
 
 | Configuration | Value |
 |:--|:--|
-|Epoch | 2 |
+|Epoch | 3 |
 |Batch Size | 32 |
 |Optimizer | ADAM |
 
 ## Reproduction
+ * In order to reproduce the model, it requires our datasets. You can send me an e-mail at kawaekc@gmail.com if you are interested.
+ 
+ - Install dependencies
+    ```Bash
+    pip install -r requirements.txt
+    ```
+    
+ - Run the train.py python script
+ 
+    ```Bash
+    python train.py 
+    ```
+    
+ - Open and run the notebook for prediction : `predictor.ipynb`
