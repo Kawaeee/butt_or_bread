@@ -31,3 +31,5 @@ def get_duplicated_images(dir_path,hash_func= imagehash.phash):
         result.append(duplicated_images)
 
     return result
+
+get_duplicated_images(directory)
