@@ -61,4 +61,4 @@
     python train.py 
     ```
     
- - Open and run the notebook for prediction : `predictor.ipynb`
+ - Open and run the notebook for prediction: `predictor.ipynb`
