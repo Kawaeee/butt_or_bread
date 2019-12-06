@@ -1,6 +1,5 @@
 #hashing.py
 
-import pandas as pd 
 import imagehash
 from PIL import Image
 from tqdm import tqdm
