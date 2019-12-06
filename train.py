@@ -11,16 +11,16 @@ from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch.optim as optimizer
 
-dataset_path = './data/'
+dataset_path = '/data/'
 
-#https://pytorch.org/docs/stable/torchvision/models.html
+# https://pytorch.org/docs/stable/torchvision/models.html
 
 #data transformation = image augmentation  -> to tensor -> normalize
 normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                  std=[0.229, 0.224, 0.225])
 
-# train with random affine and horizontal flip
-# valid/test no augmentation
+# Train with random affine and horizontal flip
+# Valid/test no augmentation
 
 data_transforms = {
     'train':
@@ -72,7 +72,7 @@ model.fc = nn.Sequential(
 criterion = nn.CrossEntropyLoss()
 adam = optimizer.Adam(model.fc.parameters())
 
-
+# Train model function
 def train_model(model, criterion, optimizer, num_epochs=1):
     for epoch in range(num_epochs):
         time_start = time.monotonic()
@@ -113,10 +113,10 @@ def train_model(model, criterion, optimizer, num_epochs=1):
 
     return model
 
-#training
+# Training
 model_training = train_model(model, criterion, adam, num_epochs=3).to(device)
 
-#test with test data loader
+# Test with test set
 test_acc_count = 0
 
 for k, (test_images, test_labels) in tqdm(enumerate(dataloaders['test'])):
@@ -127,5 +127,5 @@ for k, (test_images, test_labels) in tqdm(enumerate(dataloaders['test'])):
 test_accuracy = test_acc_count / len(dataloaders['test'])
 print('Test acc: ',test_accuracy)
 
-#save model weight
-torch.save(model_training.state_dict(), './model/buttbread_resnet152_3.h5')
+# Save model weight
+torch.save(model_training.state_dict(), '/model/buttbread_resnet152_3.h5')
