@@ -4,7 +4,7 @@
 
 * We used PyTorch framework with GPU to develop our model using Google Colaboratory.
 
-<img src="https://img-9gag-fun.9cache.com/photo/aYeP537_700bwp_v2.webp" width="500" height="500">
+<img src="https://img-9gag-fun.9cache.com/photo/aYeP537_700b_v2.jpg" width="500" height="500">
 
 #### Reference: https://9gag.com/gag/aYeP537/corgi-butt-or-loaf-of-bread
 
@@ -28,7 +28,7 @@
       * Test: 267 images
       
 ## Model
-- ResNet-152
+- [ResNet-152](https://arxiv.org/abs/1512.03385)
 
 ## Results
 |Set|Loss|Accuracy|
