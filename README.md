@@ -1,4 +1,6 @@
-# Corgi butt or loaf of bread? 
+# Corgi butt or loaf of bread?
+[![GitHub Release](https://img.shields.io/github/v/release/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread/releases/tag/v1.0)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/kawaeee/butt_or_bread/)
 
 * We have seen a popular meme that tries to represent the similarity shared between animal and food such as **"Shiba Inu dog or toasted marshmallow?"** So, We would like to develop the deep learning model that removes the uncertainty of an image that could be like **a loaf of bread or corgi butt**. But for sure, We just do it for fun.
 
@@ -37,7 +39,7 @@
 |**Valid**|0.0132|0.9969|
 |**Test**|-|0.9968|
 
-#### You can download our model weight here: [Google Drive](https://drive.google.com/file/d/1DVsTz-gx8NvdMaFseF26CYzE6uVLPAL4/view?usp=sharing)
+#### You can download our model weight here: [v1.0](https://github.com/Kawaeee/butt_or_bread/releases/download/v1.0/buttbread_resnet152_3.h5)
 
 ## Hyperparameters and configurations
 
