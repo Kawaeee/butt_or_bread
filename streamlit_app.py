@@ -13,6 +13,12 @@ import torch.nn as nn
 from torch.nn import functional as F
 from torchvision import models, transforms
 
+st.set_page_config(
+    layout="centered",
+    page_title='Corgi butt or loaf of bread?',
+    page_icon='icon/corgi-icon.png'
+)
+
 # Markdown
 repo = "[![GitHub Star](https://img.shields.io/github/stars/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread)"
 version = "[![GitHub Release](https://img.shields.io/github/v/release/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread/releases/tag/v1.0)"
@@ -74,8 +80,8 @@ def predict(img, model):
         "height": img.height,
         "prediction": {
             "labels": {
-                "Corgi butt": "{:.3%}".format(float(butt_prob)),
-                "Loaf of bread": "{:.3%}".format(float(bread_prob)),
+                "Corgi butt 🐕": "{:.3%}".format(float(butt_prob)),
+                "Loaf of bread 🍞": "{:.3%}".format(float(bread_prob)),
             }
         },
     }
@@ -100,7 +106,7 @@ if __name__ == "__main__":
 
     download_model()
     model = initialize_model()
-    st.title("Corgi butt or loaf of bread?")
+    st.title("Corgi butt or loaf of bread? 🐕🍞")
     st.markdown(version + " " + repo + " " + visitor + " " + follower, unsafe_allow_html=True)
 
     file = st.file_uploader("Upload An Image", accept_multiple_files=False)
