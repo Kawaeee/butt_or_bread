@@ -16,7 +16,8 @@ from torchvision import models, transforms
 # Markdown
 repo = "[![GitHub Star](https://img.shields.io/github/stars/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread)"
 version = "[![GitHub Release](https://img.shields.io/github/v/release/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread/releases/tag/v1.0)"
-follow = "[![GitHub Follow](https://img.shields.io/github/followers/Kawaeee?style=social)](https://github.com/Kawaeee)"
+follower = "[![GitHub Follow](https://img.shields.io/github/followers/Kawaeee?style=social)](https://github.com/Kawaeee)"
+visitor = "![Visitor Badge](https://visitor-badge.glitch.me/badge?page_id=Kawaeee.butt_or_bread.visitor-badge)"
 
 model_url_path = "https://github.com/Kawaeee/butt_or_bread/releases/download/v1.0/buttbread_resnet152_3.h5"
 
@@ -90,7 +91,6 @@ def download_model():
         req = requests.get(model_url_path, allow_redirects=True)
         open("buttbread_resnet152_3.h5", "wb").write(req.content)
         st.balloons()
-
     return True
 
 
@@ -101,26 +101,29 @@ if __name__ == "__main__":
     download_model()
     model = initialize_model()
     st.title("Corgi butt or loaf of bread?")
-    st.markdown(version + " " + repo + " " + follow, unsafe_allow_html=True)
+    st.markdown(version + " " + repo + " " + visitor + " " + follower, unsafe_allow_html=True)
 
-    file = st.file_uploader(
-        "Upload An Image", type=["jpg", "png"], accept_multiple_files=False
-    )
+    file = st.file_uploader("Upload An Image", accept_multiple_files=False)
 
     if file:
         try:
             img = Image.open(file)
+
+            if img.mode != "RGB":
+                tmp_format = img.format
+                img = img.convert("RGB")
+                img.format = tmp_format
+
             img.filename = file.name
 
             prediction = predict(
                 img,
                 model,
             )
-        except:
+        except Exception as e:
             img = None
             prediction = None
-            st.error("ERROR: Unable to predict {} !!!".format(file.name))
-
+            st.error("ERROR: Unable to predict {} ({}) !!!".format(file.name, file.type))
     if img != None or prediction != None:
         st.header("Here is the image you've chosen")
         resized_image = img.resize((400, 400))
