@@ -1,4 +1,5 @@
 import streamlit as st
+# from streamlit.logger import get_logger
 
 import time
 import os
@@ -12,6 +13,8 @@ import torch
 import torch.nn as nn
 from torch.nn import functional as F
 from torchvision import models, transforms
+
+# st_logger = get_logger(__name__)
 
 st.set_page_config(
     layout="centered",
@@ -156,13 +159,11 @@ if __name__ == "__main__":
     st.title("Corgi butt or loaf of bread? 🐕🍞")
     st.markdown(version + " " + repo + " " + visitor + " " + follower, unsafe_allow_html=True)
 
-    upload_checkbox = st.checkbox("Upload")
+    processing_mode = st.radio("",("Upload an image", "Select pre-configured image"))
 
-    if upload_checkbox:
-        processing_mode = "Upload"
-        img_file = st.file_uploader("Upload An Image", accept_multiple_files=False)
-    else:
-        processing_mode = "Select"
+    if processing_mode == "Upload an image":
+        img_file = st.file_uploader("Upload an image", accept_multiple_files=False)
+    elif processing_mode == "Select pre-configured image":
         img_labels = st.selectbox("Pick a labels:", labels)
 
         if img_labels == labels[0]:
@@ -180,9 +181,9 @@ if __name__ == "__main__":
                 tmp_format = img.format
                 img = img.convert("RGB")
                 img.format = tmp_format
-            if processing_mode == "Upload":
+            if processing_mode == "Upload an image":
                 img.filename = img_file.name
-            else:
+            elif processing_mode == "Select pre-configured image":
                 img.filename = os.path.basename(img_file)
 
             prediction = predict(img, model)
@@ -199,3 +200,4 @@ if __name__ == "__main__":
         st.image(resized_image)
         st.write("Prediction:")
         st.json(prediction)
+        logger.debug("Houston, we have a %s", "thorny problem", exc_info=1)
