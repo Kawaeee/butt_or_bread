@@ -141,8 +141,8 @@ def download_model():
         print("Downloading butt_bread model !!")
         req = requests.get(model_url_path, allow_redirects=True)
         open("buttbread_resnet152_3.h5", "wb").write(req.content)
-
         st.balloons()
+
     return True
 
 
@@ -188,10 +188,10 @@ if __name__ == "__main__":
             prediction = predict(img, model)
 
         except Exception as e:
+            st.error("ERROR: Unable to predict {} ({}) !!!".format(img_file.name, img_file.type))
             img_file = None
             img = None
             prediction = None
-            st.error("ERROR: Unable to predict {} ({}) !!!".format(img_file.name, img_file.type))
 
     if img != None or prediction != None:
         st.header("Here is the image you've chosen")
