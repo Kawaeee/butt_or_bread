@@ -15,8 +15,8 @@ from torchvision import models, transforms
 
 st.set_page_config(
     layout="centered",
-    page_title='Corgi butt or loaf of bread?',
-    page_icon='icon/corgi-icon.png'
+    page_title="Corgi butt or loaf of bread?",
+    page_icon="icon/corgi-icon.png",
 )
 
 # Markdown
@@ -26,6 +26,51 @@ follower = "[![GitHub Follow](https://img.shields.io/github/followers/Kawaeee?st
 visitor = "![Visitor Badge](https://visitor-badge.glitch.me/badge?page_id=Kawaeee.butt_or_bread.visitor-badge)"
 
 model_url_path = "https://github.com/Kawaeee/butt_or_bread/releases/download/v1.0/buttbread_resnet152_3.h5"
+
+# Test images
+test_images_path = "test_images"
+labels = ["Corgi butt 🐕", "Loaf of bread 🍞"]
+
+corgi_images_file = [
+    "corgi_1.jpg",
+    "corgi_2.jpg",
+    "corgi_3.jpg",
+    "corgi_4.jpg",
+    "corgi_5.jpg",
+]
+
+corgi_images_name = [
+    "A loaf of corgi",
+    "Corgi butt pressed against window",
+    "Corgi butt wearing a glasses",
+    "Thicc corgi butt post",
+    "Cute corgi butt walking outdoor",
+]
+corgi_images_dict = {
+    name: os.path.join(test_images_path, c_file)
+    for name, c_file in zip(corgi_images_name, corgi_images_file)
+}
+
+bread_images_file = [
+    "bread_1.jpg",
+    "bread_2.jpg",
+    "bread_3.jpg",
+    "bread_4.jpg",
+    "bread_5.jpg",
+]
+
+bread_images_name = [
+    "A close up of a corgi butt bread",
+    "A loaf of bread on the wooden table",
+    "Big loaf of bread",
+    "Burnt version of corgi butt bread",
+    "Corgi butt bun",
+]
+
+bread_images_dict = {
+    name: os.path.join(test_images_path, b_file)
+    for name, b_file in zip(bread_images_name, bread_images_file)
+}
 
 # Model configuration
 processing_device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -97,10 +142,12 @@ def download_model():
         req = requests.get(model_url_path, allow_redirects=True)
         open("buttbread_resnet152_3.h5", "wb").write(req.content)
         st.balloons()
+
     return True
 
 
 if __name__ == "__main__":
+    img_file = None
     img = None
     prediction = None
 
@@ -109,27 +156,43 @@ if __name__ == "__main__":
     st.title("Corgi butt or loaf of bread? 🐕🍞")
     st.markdown(version + " " + repo + " " + visitor + " " + follower, unsafe_allow_html=True)
 
-    file = st.file_uploader("Upload An Image", accept_multiple_files=False)
+    upload_checkbox = st.checkbox("Upload")
 
-    if file:
+    if upload_checkbox:
+        processing_mode = "Upload"
+        img_file = st.file_uploader("Upload An Image", accept_multiple_files=False)
+    else:
+        processing_mode = "Select"
+        img_labels = st.selectbox("Pick a labels:", labels)
+
+        if img_labels == labels[0]:
+            corgi_list = st.selectbox("Pick your favorite corgi butt image 🐕:", corgi_images_name)
+            img_file = corgi_images_dict[corgi_list]
+        elif img_labels == labels[1]:
+            bread_list = st.selectbox("Pick your favorite loaf of bread image 🍞:", bread_images_name)
+            img_file = bread_images_dict[bread_list]
+
+    if img_file:
         try:
-            img = Image.open(file)
+            img = Image.open(img_file)
 
             if img.mode != "RGB":
                 tmp_format = img.format
                 img = img.convert("RGB")
                 img.format = tmp_format
+            if processing_mode == "Upload":
+                img.filename = img_file.name
+            else:
+                img.filename = os.path.basename(img_file)
 
-            img.filename = file.name
+            prediction = predict(img, model)
 
-            prediction = predict(
-                img,
-                model,
-            )
         except Exception as e:
+            st.error("ERROR: Unable to predict {} ({}) !!!".format(img_file.name, img_file.type))
+            img_file = None
             img = None
             prediction = None
-            st.error("ERROR: Unable to predict {} ({}) !!!".format(file.name, file.type))
+
     if img != None or prediction != None:
         st.header("Here is the image you've chosen")
         resized_image = img.resize((400, 400))
