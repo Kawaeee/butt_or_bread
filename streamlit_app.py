@@ -1,5 +1,5 @@
 import streamlit as st
-# from streamlit.logger import get_logger
+from streamlit.logger import get_logger
 
 import time
 import os
@@ -14,7 +14,7 @@ import torch.nn as nn
 from torch.nn import functional as F
 from torchvision import models, transforms
 
-# st_logger = get_logger(__name__)
+st_logger = get_logger(__name__)
 
 st.set_page_config(
     layout="centered",
@@ -156,10 +156,13 @@ if __name__ == "__main__":
 
     download_model()
     model = initialize_model()
+
+    st_logger.info("[INFO] Initialize %s model successfully", "buttbread_resnet152_3.h5", exc_info=0)
+
     st.title("Corgi butt or loaf of bread? 🐕🍞")
     st.markdown(version + " " + repo + " " + visitor + " " + follower, unsafe_allow_html=True)
 
-    processing_mode = st.radio("",("Upload an image", "Select pre-configured image"))
+    processing_mode = st.radio("", ("Upload an image", "Select pre-configured image"))
 
     if processing_mode == "Upload an image":
         img_file = st.file_uploader("Upload an image", accept_multiple_files=False)
@@ -169,6 +172,7 @@ if __name__ == "__main__":
         if img_labels == labels[0]:
             corgi_list = st.selectbox("Pick your favorite corgi butt image 🐕:", corgi_images_name)
             img_file = corgi_images_dict[corgi_list]
+
         elif img_labels == labels[1]:
             bread_list = st.selectbox("Pick your favorite loaf of bread image 🍞:", bread_images_name)
             img_file = bread_images_dict[bread_list]
@@ -188,8 +192,11 @@ if __name__ == "__main__":
 
             prediction = predict(img, model)
 
+            st_logger.info("[INFO] Predict %s image successfully", img.filename, exc_info=0)
+
         except Exception as e:
             st.error("ERROR: Unable to predict {} ({}) !!!".format(img_file.name, img_file.type))
+            st_logger.error("[ERROR] Unable to predict %s (%s) !!!", img_file.name, img_file.type, exc_info=0)
             img_file = None
             img = None
             prediction = None
@@ -200,4 +207,3 @@ if __name__ == "__main__":
         st.image(resized_image)
         st.write("Prediction:")
         st.json(prediction)
-        logger.debug("Houston, we have a %s", "thorny problem", exc_info=1)
