@@ -16,6 +16,8 @@ from torchvision import models, transforms
 
 st_logger = get_logger(__name__)
 
+st.set_option("deprecation.showfileUploaderEncoding", False)
+
 st.set_page_config(
     layout="centered",
     page_title="Corgi butt or loaf of bread?",
@@ -92,7 +94,7 @@ img_transformer = transforms.Compose(
 )
 
 
-@st.cache()
+@st.cache(allow_output_mutation=True, max_entries=5, ttl=3600)
 def initialize_model(device=processing_device):
     """Retrieves the butt_bread trained model and maps it to the CPU by default, can also specify GPU here."""
     model = models.resnet152(pretrained=False).to(device)
@@ -107,8 +109,6 @@ def initialize_model(device=processing_device):
 
     return model
 
-
-@st.cache()
 def predict(img, model):
     """Make a prediction on a single image"""
     input_img = img_transformer(img).float()
@@ -136,15 +136,13 @@ def predict(img, model):
 
     return json_output
 
-
-@st.cache(suppress_st_warning=True)
 def download_model():
     """Download model weight, if model does not exist in Streamlit server."""
     if os.path.isfile("buttbread_resnet152_3.h5") == False:
         print("Downloading butt_bread model !!")
         req = requests.get(model_url_path, allow_redirects=True)
         open("buttbread_resnet152_3.h5", "wb").write(req.content)
-        st.balloons()
+        return True
 
     return True
 
