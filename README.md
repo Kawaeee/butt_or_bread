@@ -54,8 +54,8 @@
  * In order to reproduce the model, it requires our datasets. You can send me an e-mail at kawaekc@gmail.com if you are interested.
  
  - Install dependencies 
-   - Remove "+cpu"  and "--find-links flag" in requirements.txt to get CUDA support
-   
+    ###### Remove "+cpu"  and "--find-links flag" in requirements.txt to get CUDA support
+
     ```Bash
     pip install -r requirements.txt
     ```
