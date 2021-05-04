@@ -111,7 +111,7 @@ def initialize_model(device=processing_device):
 
     return model
 
-@st.cache(max_entries=10, ttl=300)
+@st.cache(max_entries=5, ttl=300)
 def predict(img, model):
     """Make a prediction on a single image"""
     input_img = img_transformer(img).float()

@@ -78,7 +78,7 @@
  - Run the streamlit
  
     ```Bash
-    streamlit run streamlit_app,py
+    streamlit run streamlit_app.py
     ```
     
  - Streamlit web application will be host on http://localhost:8501
