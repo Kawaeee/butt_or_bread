@@ -96,7 +96,7 @@ img_transformer = transforms.Compose(
 )
 
 
-@st.cache(allow_output_mutation=True, max_entries=2, ttl=600)
+@st.cache(allow_output_mutation=True, suppress_st_warning=True, max_entries=2, ttl=600)
 def initialize_model(device=processing_device):
     """Retrieves the butt_bread trained model and maps it to the CPU by default, can also specify GPU here."""
     model = models.resnet152(pretrained=False).to(device)
@@ -111,6 +111,7 @@ def initialize_model(device=processing_device):
 
     return model
 
+@st.cache(max_entries=10, ttl=300)
 def predict(img, model):
     """Make a prediction on a single image"""
     input_img = img_transformer(img).float()
