@@ -137,6 +137,10 @@ def predict(img, model):
         },
     }
 
+    input_img = None
+    pred_logit_tensor = None
+    pred_probs = None
+
     return json_output
 
 def download_model():
@@ -145,7 +149,7 @@ def download_model():
         print("Downloading butt_bread model !!")
         req = requests.get(model_url_path, allow_redirects=True)
         open("buttbread_resnet152_3.h5", "wb").write(req.content)
-        return True
+        req = None
 
     return True
 
@@ -224,6 +228,8 @@ if __name__ == "__main__":
         st.image(resized_image)
         st.write("Prediction:")
         st.json(prediction)
+        img = None
+        resized_image = None
+        prediction = None
     
-    # Reset model after used
     model = None
