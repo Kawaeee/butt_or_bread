@@ -79,6 +79,7 @@ bread_images_dict = {
 }
 
 # Model configuration
+# Streamlit server does not provide GPU, So we go will CPU!
 processing_device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 img_normalizer = transforms.Normalize(
@@ -95,7 +96,7 @@ img_transformer = transforms.Compose(
 )
 
 
-@st.cache(allow_output_mutation=True, max_entries=3, ttl=1800)
+@st.cache(allow_output_mutation=True, suppress_st_warning=True, max_entries=2, ttl=600)
 def initialize_model(device=processing_device):
     """Retrieves the butt_bread trained model and maps it to the CPU by default, can also specify GPU here."""
     model = models.resnet152(pretrained=False).to(device)
@@ -110,6 +111,7 @@ def initialize_model(device=processing_device):
 
     return model
 
+@st.cache(max_entries=5, ttl=300)
 def predict(img, model):
     """Make a prediction on a single image"""
     input_img = img_transformer(img).float()
@@ -135,6 +137,10 @@ def predict(img, model):
         },
     }
 
+    input_img = None
+    pred_logit_tensor = None
+    pred_probs = None
+
     return json_output
 
 def download_model():
@@ -143,7 +149,7 @@ def download_model():
         print("Downloading butt_bread model !!")
         req = requests.get(model_url_path, allow_redirects=True)
         open("buttbread_resnet152_3.h5", "wb").write(req.content)
-        return True
+        req = None
 
     return True
 
@@ -222,6 +228,8 @@ if __name__ == "__main__":
         st.image(resized_image)
         st.write("Prediction:")
         st.json(prediction)
+        img = None
+        resized_image = None
+        prediction = None
     
-    # Reset model after used
     model = None

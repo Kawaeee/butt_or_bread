@@ -50,13 +50,15 @@
 |Batch Size | 32 |
 |Optimizer | ADAM |
 
-## Reproduction
+## Model Reproduction
  * In order to reproduce the model, it requires our datasets. You can send me an e-mail at kawaekc@gmail.com if you are interested.
  
- - Install dependencies
-    ```Bash
-    pip install -r requirements.txt
-    ```
+ - Install dependencies 
+     - ```Remove "+cpu"  and "--find-links flag" in requirements.txt to get CUDA support```
+     
+         ```Bash
+         pip install -r requirements.txt
+         ```
     
  - Run the train.py python script
  
@@ -65,3 +67,19 @@
     ```
     
  - Open and run the notebook for prediction: `predictor.ipynb`
+ 
+## Streamlit Reproduction
+ - Install dependencies 
+   
+    ```Bash
+    pip install -r requirements.txt
+    ```
+    
+ - Run the streamlit
+ 
+    ```Bash
+    streamlit run streamlit_app.py
+    ```
+    
+ - Streamlit web application will be host on http://localhost:8501
+ 
