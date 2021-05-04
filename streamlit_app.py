@@ -4,6 +4,7 @@ from streamlit.logger import get_logger
 import time
 import os
 import requests
+import psutil
 
 from PIL import Image
 import numpy as np
@@ -94,7 +95,7 @@ img_transformer = transforms.Compose(
 )
 
 
-@st.cache(allow_output_mutation=True, max_entries=5, ttl=3600)
+@st.cache(allow_output_mutation=True, max_entries=3, ttl=1800)
 def initialize_model(device=processing_device):
     """Retrieves the butt_bread trained model and maps it to the CPU by default, can also specify GPU here."""
     model = models.resnet152(pretrained=False).to(device)
@@ -147,6 +148,17 @@ def download_model():
     return True
 
 
+def health_check():
+    """"Check CPU/Memory usage of deployed machine"""
+    cpu_percent = psutil.cpu_percent(0.15)
+    total_memory = psutil.virtual_memory().total / float(1 << 30)
+    used_memory = psutil.virtual_memory().used / float(1 << 30)
+
+    cpu_usage = "CPU Usage: {:.2f}%".format(cpu_percent)
+    memory_usage = "Memory usage: {:,.2f}G/{:,.2f}G".format(used_memory, total_memory)
+    return " | ".join([cpu_usage, memory_usage])
+
+
 if __name__ == "__main__":
     img_file = None
     img = None
@@ -154,7 +166,8 @@ if __name__ == "__main__":
 
     download_model()
     model = initialize_model()
-
+    
+    st_logger.debug("[DEBUG] Model initialization: %s",health_check(),exc_info=0)
     st_logger.info("[INFO] Initialize %s model successfully", "buttbread_resnet152_3.h5", exc_info=0)
 
     st.title("Corgi butt or loaf of bread? 🐕🍞")
@@ -189,7 +202,7 @@ if __name__ == "__main__":
                 img.filename = os.path.basename(img_file)
 
             prediction = predict(img, model)
-
+            st_logger.debug("[DEBUG] Model prediction: %s",health_check(),exc_info=0)
             st_logger.info("[INFO] Predict %s image successfully", img.filename, exc_info=0)
 
         except Exception as e:

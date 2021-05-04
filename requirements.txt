@@ -6,3 +6,4 @@ pillow==8.2.0
 streamlit==0.80.0
 torch==1.8.1
 torchvision==0.9.1
+psutil==5.8.0
