@@ -149,14 +149,18 @@ def download_model():
 
 
 def health_check():
-    """"Check CPU/Memory usage of deployed machine"""
+    """ "Check CPU/Memory/Disk usage of deployed machine"""
     cpu_percent = psutil.cpu_percent(0.15)
     total_memory = psutil.virtual_memory().total / float(1 << 30)
     used_memory = psutil.virtual_memory().used / float(1 << 30)
+    total_disk = psutil.disk_usage("/").total / float(1 << 30)
+    used_disk = psutil.disk_usage("/").used / float(1 << 30)
 
     cpu_usage = "CPU Usage: {:.2f}%".format(cpu_percent)
     memory_usage = "Memory usage: {:,.2f}G/{:,.2f}G".format(used_memory, total_memory)
-    return " | ".join([cpu_usage, memory_usage])
+    disk_usage = "Disk usage: {:,.2f}G/{:,.2f}G".format(used_disk, total_disk)
+
+    return " | ".join([cpu_usage, memory_usage, disk_usage])
 
 
 if __name__ == "__main__":
@@ -167,7 +171,7 @@ if __name__ == "__main__":
     download_model()
     model = initialize_model()
     
-    st_logger.debug("[DEBUG] Model initialization: %s",health_check(),exc_info=0)
+    st_logger.info("[DEBUG] %s",health_check(),exc_info=0)
     st_logger.info("[INFO] Initialize %s model successfully", "buttbread_resnet152_3.h5", exc_info=0)
 
     st.title("Corgi butt or loaf of bread? 🐕🍞")
@@ -202,7 +206,7 @@ if __name__ == "__main__":
                 img.filename = os.path.basename(img_file)
 
             prediction = predict(img, model)
-            st_logger.debug("[DEBUG] Model prediction: %s",health_check(),exc_info=0)
+            st_logger.info("[DEBUG] %s",health_check(),exc_info=0)
             st_logger.info("[INFO] Predict %s image successfully", img.filename, exc_info=0)
 
         except Exception as e:
@@ -218,3 +222,6 @@ if __name__ == "__main__":
         st.image(resized_image)
         st.write("Prediction:")
         st.json(prediction)
+    
+    # Reset model after used
+    model = None
