@@ -27,11 +27,11 @@ st.set_page_config(
 
 # Markdown
 repo = "[![GitHub Star](https://img.shields.io/github/stars/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread)"
-version = "[![GitHub Release](https://img.shields.io/github/v/release/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread/releases/tag/v1.0)"
+version = "[![GitHub Release](https://img.shields.io/github/v/release/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread/releases/tag/v1.1)"
 follower = "[![GitHub Follow](https://img.shields.io/github/followers/Kawaeee?style=social)](https://github.com/Kawaeee)"
 visitor = "![Visitor Badge](https://visitor-badge.glitch.me/badge?page_id=Kawaeee.butt_or_bread.visitor-badge)"
 
-model_url_path = "https://github.com/Kawaeee/butt_or_bread/releases/download/v1.0/buttbread_resnet152_3.h5"
+model_url_path = "https://github.com/Kawaeee/butt_or_bread/releases/download/v1.1/buttbread_resnet152_3.h5"
 
 # Test images
 test_images_path = "test_images"

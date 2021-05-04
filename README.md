@@ -1,5 +1,5 @@
 # Corgi butt or loaf of bread?
-[![GitHub Release](https://img.shields.io/github/v/release/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread/releases/tag/v1.0)
+[![GitHub Release](https://img.shields.io/github/v/release/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread/releases/tag/v1.1)
 ![Visitor Badge](https://visitor-badge.glitch.me/badge?page_id=Kawaeee.butt_or_bread.visitor-badge)
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/kawaeee/butt_or_bread/)
 
@@ -40,7 +40,7 @@
 |**Valid**|0.0132|0.9969|
 |**Test**|-|0.9968|
 
-#### You can download our model weight here: [v1.0](https://github.com/Kawaeee/butt_or_bread/releases/download/v1.0/buttbread_resnet152_3.h5)
+#### You can download our model weight here: [v1.1](https://github.com/Kawaeee/butt_or_bread/releases/download/v1.1/buttbread_resnet152_3.h5)
 
 ## Hyperparameters and configurations
 
