@@ -144,7 +144,7 @@ def predict(img, model):
 
 def download_model():
     """Download model weight, if model does not exist in Streamlit server."""
-    if os.path.isfile("buttbread_resnet152_3.h5") == False:
+    if os.path.isfile("buttbread_resnet152_3.h5") is False:
         print("Downloading butt_bread model !!")
         req = requests.get(model_url_path, allow_redirects=True)
         open("buttbread_resnet152_3.h5", "wb").write(req.content)
@@ -221,7 +221,7 @@ if __name__ == "__main__":
             img = None
             prediction = None
 
-    if img != None or prediction != None:
+    if img is not None or prediction is not None:
         st.header("Here is the image you've chosen")
         resized_image = img.resize((400, 400))
         st.image(resized_image)
