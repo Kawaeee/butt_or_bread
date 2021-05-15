@@ -79,7 +79,7 @@ bread_images_dict = {
 }
 
 # Model configuration
-# Streamlit server does not provide GPU, So we go will CPU!
+# Streamlit server does not provide GPU, So we will go with CPU!
 processing_device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 img_normalizer = transforms.Normalize(
@@ -96,7 +96,7 @@ img_transformer = transforms.Compose(
 )
 
 
-@st.cache(allow_output_mutation=True, suppress_st_warning=True, max_entries=2, ttl=600)
+@st.cache(allow_output_mutation=True, suppress_st_warning=True, max_entries=3, ttl=300)
 def initialize_model(device=processing_device):
     """Retrieves the butt_bread trained model and maps it to the CPU by default, can also specify GPU here."""
     model = models.resnet152(pretrained=False).to(device)

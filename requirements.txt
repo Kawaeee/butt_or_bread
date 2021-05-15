@@ -3,7 +3,7 @@ matplotlib==3.4.1
 numpy==1.20.2
 tqdm==4.60.0
 pillow==8.2.0
-streamlit==0.80.0
+streamlit==0.82.0
 # [STREAMLIT] Remove "+cpu"  and "--find-links flag" in requirements.txt to get CUDA support
 --find-links https://download.pytorch.org/whl/torch_stable.html
 torch==1.8.1+cpu 
