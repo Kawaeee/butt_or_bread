@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit.logger import get_logger
 
+import gc
 import time
 import os
 import requests
@@ -14,6 +15,8 @@ import torch
 import torch.nn as nn
 from torch.nn import functional as F
 from torchvision import models, transforms
+
+os.environ["LRU_CACHE_CAPACITY"] = "1"
 
 st_logger = get_logger(__name__)
 
@@ -52,8 +55,9 @@ corgi_images_name = [
     "Thicc corgi butt post",
     "Cute corgi butt walking outdoor",
 ]
+
 corgi_images_dict = {
-    name: os.path.join(test_images_path, c_file)
+    name: os.path.join(test_images_path, c_file) 
     for name, c_file in zip(corgi_images_name, corgi_images_file)
 }
 
@@ -74,7 +78,7 @@ bread_images_name = [
 ]
 
 bread_images_dict = {
-    name: os.path.join(test_images_path, b_file)
+    name: os.path.join(test_images_path, b_file) 
     for name, b_file in zip(bread_images_name, bread_images_file)
 }
 
@@ -99,6 +103,7 @@ img_transformer = transforms.Compose(
 @st.cache(allow_output_mutation=True, suppress_st_warning=True, max_entries=3, ttl=300)
 def initialize_model(device=processing_device):
     """Retrieves the butt_bread trained model and maps it to the CPU by default, can also specify GPU here."""
+    
     model = models.resnet152(pretrained=False).to(device)
     model.fc = nn.Sequential(
         nn.Linear(2048, 128),
@@ -111,8 +116,10 @@ def initialize_model(device=processing_device):
 
     return model
 
+
 def predict(img, model):
     """Make a prediction on a single image"""
+
     input_img = img_transformer(img).float()
     input_img = input_img.unsqueeze(0)
 
@@ -142,8 +149,10 @@ def predict(img, model):
 
     return json_output
 
+
 def download_model():
     """Download model weight, if model does not exist in Streamlit server."""
+
     if os.path.isfile("buttbread_resnet152_3.h5") is False:
         print("Downloading butt_bread model !!")
         req = requests.get(model_url_path, allow_redirects=True)
@@ -155,6 +164,7 @@ def download_model():
 
 def health_check():
     """ "Check CPU/Memory/Disk usage of deployed machine"""
+
     cpu_percent = psutil.cpu_percent(0.15)
     total_memory = psutil.virtual_memory().total / float(1 << 30)
     used_memory = psutil.virtual_memory().used / float(1 << 30)
@@ -175,8 +185,8 @@ if __name__ == "__main__":
 
     download_model()
     model = initialize_model()
-    
-    st_logger.info("[DEBUG] %s",health_check(),exc_info=0)
+
+    st_logger.info("[DEBUG] %s", health_check(), exc_info=0)
     st_logger.info("[INFO] Initialize %s model successfully", "buttbread_resnet152_3.h5", exc_info=0)
 
     st.title("Corgi butt or loaf of bread? 🐕🍞")
@@ -192,7 +202,6 @@ if __name__ == "__main__":
         if img_labels == labels[0]:
             corgi_list = st.selectbox("Pick your favorite corgi butt image 🐕:", corgi_images_name)
             img_file = corgi_images_dict[corgi_list]
-
         elif img_labels == labels[1]:
             bread_list = st.selectbox("Pick your favorite loaf of bread image 🍞:", bread_images_name)
             img_file = bread_images_dict[bread_list]
@@ -211,12 +220,14 @@ if __name__ == "__main__":
                 img.filename = os.path.basename(img_file)
 
             prediction = predict(img, model)
-            st_logger.info("[DEBUG] %s",health_check(),exc_info=0)
+
+            st_logger.info("[DEBUG] %s", health_check(), exc_info=0)
             st_logger.info("[INFO] Predict %s image successfully", img.filename, exc_info=0)
 
         except Exception as e:
             st.error("ERROR: Unable to predict {} ({}) !!!".format(img_file.name, img_file.type))
             st_logger.error("[ERROR] Unable to predict %s (%s) !!!", img_file.name, img_file.type, exc_info=0)
+
             img_file = None
             img = None
             prediction = None
@@ -227,8 +238,11 @@ if __name__ == "__main__":
         st.image(resized_image)
         st.write("Prediction:")
         st.json(prediction)
+
         img = None
         resized_image = None
         prediction = None
-    
+
+    del model
+    gc.collect()
     model = None
