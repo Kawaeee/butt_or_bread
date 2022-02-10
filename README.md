@@ -84,7 +84,6 @@
       │   └───valid
       │   │    │   butt/
       │   │    │   bread/
-      │
    ```
 
 ## Model Reproduction
@@ -99,7 +98,7 @@
    pip install -r requirements.txt
    ```
 
- - Run the train.py python script
+ - Run the `train.py` python script
    ```Bash
    python train.py --dataset-path datasets/ --model-path buttbread_resnet152_3.h5
    ```
