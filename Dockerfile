@@ -27,7 +27,7 @@ RUN wget https://github.com/Kawaeee/butt_or_bread/releases/download/v1.2/buttbre
 
 # Install python packages
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt --no-cache-dir
+RUN pip install -r /opt/butt_or_bread/requirements.txt --no-cache-dir
 
 # House-keeping
 RUN conda clean -a -y
