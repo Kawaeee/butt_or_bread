@@ -1,0 +1,46 @@
+{
+   "ui":{
+      "title":"Corgi butt or loaf of bread?",
+      "icon":"assets/icon/corgi-icon.png",
+      "markdown":{
+         "star":"[![GitHub Star](https://img.shields.io/github/stars/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread)",
+         "release":"[![GitHub Release](https://img.shields.io/github/v/release/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread/releases/tag/v1.2)",
+         "visitor":"![Visitor Badge](https://visitor-badge.glitch.me/badge?page_id=Kawaeee.butt_or_bread.visitor-badge)"
+      },
+      "mode":{
+         "upload":{
+            "main_label":"Upload an image"
+         },
+         "select":{
+            "main_label":"Select pre-configured image",
+            "class_label":"Pick a labels:",
+            "corgi_label":"Pick your favorite corgi butt image 🐕:",
+            "bread_label":"Pick your favorite loaf of bread image 🍞:"
+         }
+      }
+   },
+   "model":{
+      "url":"https://github.com/Kawaeee/butt_or_bread/releases/download/v1.2/buttbread_resnet152_3.h5",
+      "label":{
+         "corgi":"Corgi butt 🐕",
+         "bread":"Loaf of bread 🍞"
+      }
+   },
+   "image":{
+      "base_path":"assets/images/",
+      "corgi":{
+         "A loaf of corgi":"corgi/corgi_1.jpg",
+         "Corgi butt pressed against window":"corgi/corgi_2.jpg",
+         "Corgi butt wearing a glasses":"corgi/corgi_3.jpg",
+         "Thicc corgi butt post":"corgi/corgi_4.jpg",
+         "Cute corgi butt walking outdoor":"corgi/corgi_5.jpg"
+      },
+      "bread":{
+         "A close up of a corgi butt bread":"bread/bread_1.jpg",
+         "A loaf of bread on the wooden table":"bread/bread_2.jpg",
+         "Big loaf of bread":"bread/bread_3.jpg",
+         "Burnt version of corgi butt bread":"bread/bread_4.jpg",
+         "Corgi butt bun":"bread/bread_5.jpg"
+      }
+   }
+}
