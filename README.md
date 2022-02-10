@@ -1,5 +1,6 @@
 # Corgi butt or loaf of bread?
-[![GitHub Release](https://img.shields.io/github/v/release/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread/releases/tag/v1.1)
+[![GitHub Release](https://img.shields.io/github/v/release/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread/releases/tag/v1.2)
+![Implemented in](https://upload.wikimedia.org/wikipedia/commons/f/fc/Blue_Python_3.7_Shield_Badge.svg)
 ![Visitor Badge](https://visitor-badge.glitch.me/badge?page_id=Kawaeee.butt_or_bread.visitor-badge)
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/kawaeee/butt_or_bread/)
 
@@ -15,21 +16,19 @@
 * Bread dataset was acquired from the combination of Google Open Images V5 + Google Images search
 * Corgi dataset was acquired from the combination of ImageNet + Stanford Dogs + Google Images search
 
-  **After that, we manually remove incorrect images and apply Perceptual Hashing to get rid of duplication images.**
+  **After that, we manually remove incorrect images and apply [phash](https://github.com/Kawaeee/phash) (Perceptual Hashing) to get rid of duplication images.**
 
   * Total images: 6385 images (randomly split using 80:10:10 ratios) with [dataset-split](https://github.com/muriloxyz/dataset-split)
-  
+
     * **Bread**: 3710 images
-    
       * Train: 2968 images
       * Valid: 371 images
       * Test: 371 images
     * **Corgi**: 2675 images
-    
       * Train: 2140 images
       * Valid: 268 images
       * Test: 267 images
-      
+
 ## Model
 - [ResNet-152](https://arxiv.org/abs/1512.03385)
 
@@ -40,46 +39,90 @@
 |**Valid**|0.0132|0.9969|
 |**Test**|-|0.9968|
 
-#### You can download our model weight here: [v1.1](https://github.com/Kawaeee/butt_or_bread/releases/download/v1.1/buttbread_resnet152_3.h5)
+* We already know that in order to benchmark our model performance, we can't just use `accuracy` and `validation_loss` value as the only acceptable metrics.
+
+#### You can download our model weight here: [v1.2](https://github.com/Kawaeee/butt_or_bread/releases/download/v1.3/buttbread_resnet152_3.h5)
 
 ## Hyperparameters and configurations
 
-| Configuration | Value |
+|Configuration|Value|
 |:--|:--|
-|Epoch | 3 |
-|Batch Size | 32 |
-|Optimizer | ADAM |
+|Epoch|3|
+|Batch Size|32|
+|Optimizer|ADAM|
 
 ## Model Reproduction
- * In order to reproduce the model, it requires our datasets. You can send me an e-mail at kawaekc@gmail.com if you are interested.
- 
- - Install dependencies 
-     - ```Remove "+cpu"  and "--find-links flag" in requirements.txt to get CUDA support```
-     
-         ```Bash
-         pip install -r requirements.txt
-         ```
-    
+ * In order to reproduce the model, it requires our datasets. You can send me an e-mail at `kawaekc@gmail.com` if you are interested.
+
+ - Clone this repository
+   ```bash
+   git clone https://github.com/Kawaeee/butt_or_bread.git
+   ```
+
+ - Install dependencies
+   ```Bash
+   pip install -r requirements.txt
+   ```
+
+ - Prepare dataset in these following directory structure
+   ```Bash
+   butt_or_bread
+      │   Dockerfile
+      │   LICENSE
+      │   README.md
+      │   requirements.txt
+      │   train.py
+      │
+      └───datasets/
+      │   │
+      │   └───train
+      │   │    │   corgi/
+      │   │    │   bread/
+      │   └───test
+      │   │    │   corgi/
+      │   │    │   bread/
+      │   └───valid
+      │   │    │   corgi/
+      │   │    │   bread/
+      │
+   ```
+
  - Run the train.py python script
- 
-    ```Bash
-    python train.py 
-    ```
-    
+   ```Bash
+   python train.py
+   ```
+
  - Open and run the notebook for prediction: `predictor.ipynb`
- 
-## Streamlit Reproduction
- - Install dependencies 
-   
-    ```Bash
-    pip install -r requirements.txt
-    ```
-    
+
+## Streamlit Local Reproduction
+
+ - Clone this repository
+   ```bash
+   git clone https://github.com/Kawaeee/butt_or_bread.git
+   ```
+
+ - Install dependencies
+   ```Bash
+   pip install -r requirements.txt
+   ```
+
  - Run the streamlit
- 
-    ```Bash
-    streamlit run streamlit_app.py
-    ```
-    
+   ```Bash
+   streamlit run streamlit_app.py
+   ```
+
  - Streamlit web application will be host on http://localhost:8501
- 
+
+ ## Streamlit Docker Reproduction
+
+ - Build Docker image from Dockerfile
+   ```Bash
+   docker build -t butt_or_bread -f Dockerfile  .
+   ```
+
+ - Run Docker with exposed port 8501
+   ```Bash
+   docker run -p 8501:8501 butt_or_bread
+   ```
+
+ - Streamlit web application will be host on http://localhost:8501
