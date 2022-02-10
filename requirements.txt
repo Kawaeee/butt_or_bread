@@ -1,11 +1,13 @@
 ImageHash==4.2.0
 matplotlib==3.4.1
 numpy==1.21.0
-tqdm==4.60.0
 pillow==9.0.0
-streamlit==0.82.0
-# [STREAMLIT] Remove "+cpu"  and "--find-links flag" in requirements.txt to get CUDA support
+psutil==5.9.0
+requests==2.27.1
+streamlit==1.5.0
+# [STREAMLIT-DEPLOYMENT-GUIDE] Add "+cpu" on torch and torchvision to get CPU inference support
+# NOTE: On macOS system, it might be unable to install with +cpu flag
 --find-links https://download.pytorch.org/whl/torch_stable.html
-torch==1.8.1+cpu 
-torchvision==0.9.1+cpu 
-psutil==5.8.0
+torch==1.8.1
+torchvision==0.9.1
+tqdm==4.60.0
