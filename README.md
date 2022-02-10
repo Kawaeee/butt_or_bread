@@ -4,9 +4,9 @@
 ![Visitor Badge](https://visitor-badge.glitch.me/badge?page_id=Kawaeee.butt_or_bread.visitor-badge)
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/kawaeee/butt_or_bread/)
 
-* We have seen a popular meme that tries to represent the similarity shared between animal and food such as **"Shiba Inu dog or toasted marshmallow?"** So, We would like to develop the deep learning model that removes the uncertainty of an image that could be like **a loaf of bread or corgi butt**. But for sure, We just do it for fun.
+* We have seen a popular meme that tries to represent the similarity shared between animals and food such as **"Shiba Inu dog or toasted marshmallow?"** So, We would like to develop the deep learning model that removes the uncertainty of an image that could be like **a loaf of bread or corgi butt**. But for sure, We just do it for fun.
 
-* We used PyTorch framework with GPU to develop our model using Google Colaboratory.
+* We used the PyTorch framework with GPU to develop our model using Google Colaboratory.
 
 <img src="https://img-9gag-fun.9cache.com/photo/aYeP537_700b_v2.jpg" width="500" height="500">
 
@@ -39,7 +39,7 @@
 |**Valid**|0.0132|0.9969|
 |**Test**|-|0.9968|
 
-* We already know that in order to benchmark our model performance, we can't just use `accuracy` and `validation_loss` value as the only acceptable metrics.
+* We already know that to benchmark our model performance, we can't just use `accuracy` and `validation_loss` value as the only acceptable metrics.
 
 #### You can download our model weight here: [v1.2](https://github.com/Kawaeee/butt_or_bread/releases/download/v1.3/buttbread_resnet152_3.h5)
 
@@ -51,8 +51,43 @@
 |Batch Size|32|
 |Optimizer|ADAM|
 
+## Dataset Preparation
+ * To reproduce the model, requires our datasets. You can send me an e-mail at `kawaekc@gmail.com` if you are interested.
+ 
+ - Prepare dataset in these following directory structure
+   ```Bash
+      └───datasets/
+      │     butt/
+      │     bread/
+   ```
+
+ - Install [dataset-split](https://github.com/muriloxyz/dataset-split) library
+   ```bash
+   pip install dataset-split
+   ```
+
+ - Execute `dataset-split` command with following arguments on both category
+   ```bash
+   dataset-split dataset/ -r 0.8 0.1 0.1
+   ```
+
+-  The result will be in this format, and we are ready to proceed to model training
+   ```Bash
+      └───datasets/
+      │   │
+      │   └───train
+      │   │    │   butt/
+      │   │    │   bread/
+      │   └───test
+      │   │    │   butt/
+      │   │    │   bread/
+      │   └───valid
+      │   │    │   butt/
+      │   │    │   bread/
+      │
+   ```
+
 ## Model Reproduction
- * In order to reproduce the model, it requires our datasets. You can send me an e-mail at `kawaekc@gmail.com` if you are interested.
 
  - Clone this repository
    ```bash
@@ -64,35 +99,12 @@
    pip install -r requirements.txt
    ```
 
- - Prepare dataset in these following directory structure
-   ```Bash
-   butt_or_bread
-      │   Dockerfile
-      │   LICENSE
-      │   README.md
-      │   requirements.txt
-      │   train.py
-      │
-      └───datasets/
-      │   │
-      │   └───train
-      │   │    │   corgi/
-      │   │    │   bread/
-      │   └───test
-      │   │    │   corgi/
-      │   │    │   bread/
-      │   └───valid
-      │   │    │   corgi/
-      │   │    │   bread/
-      │
-   ```
-
  - Run the train.py python script
    ```Bash
-   python train.py
+   python train.py --dataset-path datasets/ --model-path buttbread_resnet152_3.h5
    ```
 
- - Open and run the notebook for prediction: `predictor.ipynb`
+ - Check jupyter notebook for interactive prediction: `predictor.ipynb`
 
 ## Streamlit Local Reproduction
 
@@ -111,13 +123,13 @@
    streamlit run streamlit_app.py
    ```
 
- - Streamlit web application will be host on http://localhost:8501
+ - Streamlit web application will be hosted on http://localhost:8501
 
  ## Streamlit Docker Reproduction
 
  - Build Docker image from Dockerfile
    ```Bash
-   docker build -t butt_or_bread -f Dockerfile  .
+   docker build -t butt_or_bread -f Dockerfile .
    ```
 
  - Run Docker with exposed port 8501
@@ -125,4 +137,4 @@
    docker run -p 8501:8501 butt_or_bread
    ```
 
- - Streamlit web application will be host on http://localhost:8501
+ - Streamlit web application will be hosted on http://localhost:8501
