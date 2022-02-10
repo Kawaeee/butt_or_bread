@@ -18,7 +18,7 @@
 
   **After that, we manually remove incorrect images and apply [phash](https://github.com/Kawaeee/phash) (Perceptual Hashing) to get rid of duplication images.**
 
-  * Total images: 6385 images (randomly split using 80:10:10 ratios) with [dataset-split](https://github.com/muriloxyz/dataset-split)
+  * Total images: 6385 images (randomly split using 80:10:10 ratios)
 
     * **Bread**: 3710 images
       * Train: 2968 images
@@ -39,9 +39,9 @@
 |**Valid**|0.0132|0.9969|
 |**Test**|-|0.9968|
 
-* We already know that to benchmark our model performance, we can't just use `accuracy` and `validation_loss` value as the only acceptable metrics.
+* We already know that in order to benchmark our model performance, we can't just use `accuracy` and `validation_loss` value as the only acceptable metrics.
 
-#### You can download our model weight here: [v1.2](https://github.com/Kawaeee/butt_or_bread/releases/download/v1.3/buttbread_resnet152_3.h5)
+#### You can download our model weight here: [v1.2](https://github.com/Kawaeee/butt_or_bread/releases/download/v1.2/buttbread_resnet152_3.h5)
 
 ## Hyperparameters and configurations
 
@@ -54,7 +54,7 @@
 ## Dataset Preparation
  * To reproduce the model, requires our datasets. You can send me an e-mail at `kawaekc@gmail.com` if you are interested.
  
- - Prepare dataset in these following directory structure
+ - Initial datasets/ directory structure
    ```Bash
       └───datasets/
       │     butt/
@@ -66,12 +66,12 @@
    pip install dataset-split
    ```
 
- - Execute `dataset-split` command with following arguments on both category
+ - Execute `dataset-split` command with following arguments
    ```bash
    dataset-split dataset/ -r 0.8 0.1 0.1
    ```
 
--  The result will be in this format, and we are ready to proceed to model training
+-  Ready-to-go datasets/ directory structure
    ```Bash
       └───datasets/
       │   │
@@ -136,5 +136,3 @@
    ```Bash
    docker run -p 8501:8501 butt_or_bread
    ```
-
- - Streamlit web application will be hosted on http://localhost:8501

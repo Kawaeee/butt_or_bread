@@ -10,6 +10,8 @@ from torch.utils.data import DataLoader
 
 
 class ButtBreadModel:
+    """Corgi butt or loaf of bread? model"""
+
     def __init__(self, device):
         self.model = None
         self.device = device
@@ -17,10 +19,11 @@ class ButtBreadModel:
         self.optimizer = None
 
     def initialize(self):
+        """Transfer Learning by using ResNet-152 as pre-trained weight"""
         self.model = models.resnet152(pretrained=True).to(self.device)
 
-        for param in self.model.parameters():
-            param.requires_grad = False
+        for parameter in self.model.parameters():
+            parameter.requires_grad = False
 
         self.model.fc = torch.nn.Sequential(
             torch.nn.Linear(2048, 128),
@@ -47,7 +50,7 @@ class ButtBreadModel:
                 running_loss = 0.0
                 running_corrects = 0
 
-                # Iterate and try to predict input and check with output  generate loss and correct label
+                # Iterate and try to predict input and check with output -> generate loss and correct label
                 for inputs, labels in tqdm(image_dataloaders[phase]):
                     inputs = inputs.to(self.device)
                     labels = labels.to(self.device)
@@ -65,9 +68,9 @@ class ButtBreadModel:
                     running_corrects += torch.sum(preds == labels.data)
 
                 epoch_loss = running_loss / len(image_datasets[phase])
-                epoch_acc = running_corrects.float() / len(image_datasets[phase])
+                epoch_accuracy = running_corrects.float() / len(image_datasets[phase])
 
-                print(f"{phase} loss: {epoch_loss.item():.4f}, acc: {epoch_acc.item():.4f}")
+                print(f"{phase} loss: {epoch_loss.item():.4f}, acc: {epoch_accuracy.item():.4f}")
 
             print("Runtime: (", "{0:.2f}".format(time.monotonic() - time_start), " seconds)", sep="")
 
@@ -75,15 +78,14 @@ class ButtBreadModel:
 
     def test(self, image_dataloaders):
         """Test with test set"""
-        test_acc_count = 0
+        test_accuracy_count = 0
 
         for k, (test_images, test_labels) in tqdm(enumerate(image_dataloaders["test"])):
             test_outputs = self.model(test_images.to(self.device))
             _, prediction = torch.max(test_outputs.data, 1)
-            test_acc_count += torch.sum(prediction == test_labels.to(self.device).data).item()
+            test_accuracy_count += torch.sum(prediction == test_labels.to(self.device).data).item()
 
-        test_accuracy = test_acc_count / len(image_dataloaders["test"])
-        print(f"Test acc: {test_accuracy}")
+        test_accuracy = test_accuracy_count / len(image_dataloaders["test"])
 
         return test_accuracy
 
@@ -168,8 +170,11 @@ def main(opt):
         epochs=epochs,
     )
 
-    butt_bread_obj.test(image_dataloaders=image_dataloaders)
+    test_accuracy = butt_bread_obj.test(image_dataloaders=image_dataloaders)
+    print(f"Test accuracy: {test_accuracy}")
+
     butt_bread_obj.save(model_path=model_path)
+    print(f"Saved model at {model_path}")
 
 
 if __name__ == "__main__":

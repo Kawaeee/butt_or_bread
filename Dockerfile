@@ -23,7 +23,7 @@ RUN git clone https://github.com/Kawaeee/butt_or_bread.git
 
 # Download model
 RUN cd /opt/butt_or_bread/
-RUN wget https://github.com/Kawaeee/butt_or_bread/releases/download/v1.1/buttbread_resnet152_3.h5
+RUN wget https://github.com/Kawaeee/butt_or_bread/releases/download/v1.2/buttbread_resnet152_3.h5
 
 # Install python packages
 RUN pip install --upgrade pip
