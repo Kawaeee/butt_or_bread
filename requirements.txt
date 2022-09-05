@@ -4,7 +4,7 @@ numpy==1.22.0
 pillow==9.0.1
 psutil==5.9.0
 requests==2.27.1
-streamlit==1.5.0
+streamlit==1.11.1
 # [STREAMLIT-DEPLOYMENT-GUIDE] Add "+cpu" on torch and torchvision to get CPU inference support
 # NOTE: On macOS system, it might be unable to install with +cpu flag
 --find-links https://download.pytorch.org/whl/torch_stable.html
