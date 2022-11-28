@@ -1,7 +1,7 @@
 ImageHash==4.2.0
 matplotlib==3.4.1
 numpy==1.22.0
-pillow==9.0.1
+pillow==9.3.0
 psutil==5.9.0
 requests==2.27.1
 streamlit==1.11.1
