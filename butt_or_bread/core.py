@@ -45,7 +45,7 @@ class ButtBreadClassifier:
         """
         Initializes the model by loading the pretrained ResNet152 model, adding a custom fully connected layer with two output classes, loading the model weights, and putting the model on the CPU or GPU depending on availability. Returns the initialized model.
         """
-        self.model = models.resnet152(pretrained=False).to(self.device)
+        self.model = models.resnet152(weights=None).to(self.device)
         self.model.fc = torch.nn.Sequential(
             torch.nn.Linear(2048, 128),
             torch.nn.ReLU(inplace=True),
