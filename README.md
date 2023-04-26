@@ -1,6 +1,6 @@
 # Corgi butt or loaf of bread?
-[![GitHub Release](https://img.shields.io/github/v/release/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread/releases/tag/v1.2)
-![Implemented in](https://upload.wikimedia.org/wikipedia/commons/f/fc/Blue_Python_3.7_Shield_Badge.svg)
+[![GitHub Release](https://img.shields.io/github/v/release/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread/releases/tag/v1.3)
+![Implemented in](https://upload.wikimedia.org/wikipedia/commons/1/1b/Blue_Python_3.9_Shield_Badge.svg)
 ![Visitor Badge](https://visitor-badge.glitch.me/badge?page_id=Kawaeee.butt_or_bread.visitor-badge)
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/kawaeee/butt_or_bread/)
 
@@ -41,7 +41,7 @@
 
 * We already know that in order to benchmark our model performance, we can't just use `accuracy` and `validation_loss` value as the only acceptable metrics.
 
-#### You can download our model weight here: [v1.2](https://github.com/Kawaeee/butt_or_bread/releases/download/v1.2/buttbread_resnet152_3.h5)
+#### You can download our model weight here: [v1.3](https://github.com/Kawaeee/butt_or_bread/releases/download/v1.3/buttbread_resnet152_3.h5)
 
 ## Hyperparameters and configurations
 
@@ -55,7 +55,7 @@
  * To reproduce the model, requires our datasets. You can send me an e-mail at `kawaekc@gmail.com` if you are interested.
  
  - Initial datasets/ directory structure
-   ```Bash
+   ```bash
       └───datasets/
       │     butt/
       │     bread/
@@ -72,7 +72,7 @@
    ```
 
 -  Ready-to-go datasets/ directory structure
-   ```Bash
+   ```bash
       └───datasets/
       │   │
       │   └───train
@@ -94,12 +94,12 @@
    ```
 
  - Install dependencies
-   ```Bash
+   ```bash
    pip install -r requirements.txt
    ```
 
  - Run the `train.py` python script
-   ```Bash
+   ```bash
    python train.py --dataset-path datasets/ --model-path buttbread_resnet152_3.h5
    ```
 
@@ -113,25 +113,25 @@
    ```
 
  - Install dependencies
-   ```Bash
+   ```bash
    pip install -r requirements.txt
    ```
 
  - Run the streamlit
-   ```Bash
+   ```bash
    streamlit run streamlit_app.py
    ```
 
- - Streamlit web application will be hosted on http://localhost:8501
+ > Streamlit web application will be hosted on http://localhost:8501
 
  ## Streamlit Docker Reproduction
+ - Following instructions below
+  ```bash
+    # Directly build and run
+    docker build -t butt-bread-image .
+    docker run --rm --name=butt-bread-container -p 0.0.0.0:8501:8501 butt-bread-image
 
- - Build Docker image from Dockerfile
-   ```Bash
-   docker build -t butt_or_bread -f Dockerfile .
-   ```
-
- - Run Docker with exposed port 8501
-   ```Bash
-   docker run -p 8501:8501 butt_or_bread
-   ```
+    # Serve with docker compose
+    docker-compose build
+    docker-compose up
+  ```

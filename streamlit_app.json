@@ -4,7 +4,7 @@
       "icon":"assets/icon/corgi-icon.png",
       "markdown":{
          "star":"[![GitHub Star](https://img.shields.io/github/stars/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread)",
-         "release":"[![GitHub Release](https://img.shields.io/github/v/release/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread/releases/tag/v1.2)",
+         "release":"[![GitHub Release](https://img.shields.io/github/v/release/Kawaeee/butt_or_bread)](https://github.com/Kawaeee/butt_or_bread/releases/tag/v1.3)",
          "visitor":"![Visitor Badge](https://visitor-badge.glitch.me/badge?page_id=Kawaeee.butt_or_bread.visitor-badge)"
       },
       "mode":{
@@ -20,7 +20,7 @@
       }
    },
    "model":{
-      "url":"https://github.com/Kawaeee/butt_or_bread/releases/download/v1.2/buttbread_resnet152_3.h5",
+      "url":"https://github.com/Kawaeee/butt_or_bread/releases/download/v1.3/buttbread_resnet152_3.h5",
       "label":{
          "corgi":"Corgi butt 🐕",
          "bread":"Loaf of bread 🍞"

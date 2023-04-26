@@ -14,6 +14,6 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 COPY . .
 
-RUN wget https://github.com/Kawaeee/butt_or_bread/releases/download/v1.2/buttbread_resnet152_3.h5
+RUN wget https://github.com/Kawaeee/butt_or_bread/releases/download/v1.3/buttbread_resnet152_3.h5
 
 ENTRYPOINT ["streamlit", "run", "/app/streamlit_app.py"]
