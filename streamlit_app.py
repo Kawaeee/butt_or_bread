@@ -16,7 +16,6 @@ st.set_option("deprecation.showfileUploaderEncoding", False)
 with open("streamlit_app.json") as cfg_file:
     st_app_cfg = json.load(cfg_file)
 
-
 ui_cfg = st_app_cfg["ui"]
 model_cfg = st_app_cfg["model"]
 image_cfg = st_app_cfg["image"]
@@ -28,9 +27,37 @@ st.set_page_config(
 )
 
 
-@st.cache(allow_output_mutation=True, suppress_st_warning=True, max_entries=3, ttl=300)
+@st.cache_resource
 def get_classifier():
-    """Allow butt_bread model caching"""
+    """
+    Retrieves a cached instance of a ButtBreadClassifier model, or creates a new instance if none exists.
+
+    Returns:
+        A ButtBreadClassifier object that has been downloaded and initialized.
+
+    Usage:
+        To retrieve a cached classifier, call this function without any arguments. The cached classifier will be returned
+        if it exists, or a new one will be created and cached. 
+
+        Example:
+        >>> classifier = get_classifier()
+
+        To force the creation of a new instance and bypass the cache, pass a new `model_url` parameter as a keyword
+        argument.
+
+        Example:
+        >>> new_classifier = get_classifier(model_url='https://new-model-url.com')
+
+    Raises:
+        Any exceptions raised during the initialization of the ButtBreadClassifier object, such as if the download
+        or initialization fails.
+
+    Note:
+        This function makes use of the `@st.cache_resource` decorator, which allows the resulting classifier object to be
+        cached and reused across different sessions of the Streamlit app. This can greatly improve performance, but also
+        means that changes to the underlying model will not be reflected until the cache is cleared.
+
+    """
     classifier = ButtBreadClassifier(model_url=model_cfg["url"])
     classifier.download()
     classifier.initialize()
@@ -39,28 +66,34 @@ def get_classifier():
 
 
 if __name__ == "__main__":
-
     image_file, image, prediction = None, None, None
+
     classifier = get_classifier()
-
-    st_logger.info("[DEBUG] %s", health_check(), exc_info=0)
     st_logger.info("[INFO] Initialize %s model successfully", "buttbread_resnet152_3.h5", exc_info=0)
+    st_logger.info("[DEBUG] %s", health_check(), exc_info=0)
 
-    st.title(ui_cfg["title"])
-    st.markdown(f'{ui_cfg["markdown"]["release"]} {ui_cfg["markdown"]["star"]} {ui_cfg["markdown"]["visitor"]}', unsafe_allow_html=True)
+    st.title(body=ui_cfg["title"])
+    st.markdown(
+        body=f'{ui_cfg["markdown"]["release"]} {ui_cfg["markdown"]["star"]} {ui_cfg["markdown"]["visitor"]}',
+        unsafe_allow_html=True,
+    )
 
-    mode = st.radio("", [ui_cfg["mode"]["upload"]["main_label"], ui_cfg["mode"]["select"]["main_label"]])
+    mode = st.radio(
+        label="options?",
+        options=[ui_cfg["mode"]["upload"]["main_label"], ui_cfg["mode"]["select"]["main_label"]],
+        label_visibility="hidden",
+    )
 
     if mode == ui_cfg["mode"]["upload"]["main_label"]:
-        image_file = st.file_uploader(mode, accept_multiple_files=False)
+        image_file = st.file_uploader(label=mode, accept_multiple_files=False)
     elif mode == ui_cfg["mode"]["select"]["main_label"]:
-        class_label = st.selectbox(ui_cfg["mode"]["select"]["class_label"], model_cfg["label"].values())
+        class_label = st.selectbox(label=ui_cfg["mode"]["select"]["class_label"], options=model_cfg["label"].values())
 
         if class_label == model_cfg["label"]["corgi"]:
-            image_label = st.selectbox(ui_cfg["mode"]["select"]["corgi_label"], [*image_cfg["corgi"]])
+            image_label = st.selectbox(label=ui_cfg["mode"]["select"]["corgi_label"], options=[*image_cfg["corgi"]])
             image_file = os.path.join(image_cfg["base_path"], image_cfg["corgi"][image_label])
         elif class_label == model_cfg["label"]["bread"]:
-            image_label = st.selectbox(ui_cfg["mode"]["select"]["bread_label"], [*image_cfg["bread"]])
+            image_label = st.selectbox(label=ui_cfg["mode"]["select"]["bread_label"], options=[*image_cfg["bread"]])
             image_file = os.path.join(image_cfg["base_path"], image_cfg["bread"][image_label])
 
     if image_file:

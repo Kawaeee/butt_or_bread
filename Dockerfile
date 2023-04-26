@@ -1,41 +1,19 @@
-FROM ubuntu:bionic
-LABEL maintainer="kawaekc@gmail.com"
+FROM python:3.9
 
 ENV LANG=C.UTF-8
-ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Bangkok
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Update apt package
-RUN apt update --fix-missing
+# Allow statements and log messages to immediately appear in the logs
+ENV PYTHONUNBUFFERED=1
 
-# Install required dependencies by default
-RUN apt install -y wget curl git htop nano
+WORKDIR /app
 
-# miniconda3 - Python 3.7
-WORKDIR /opt/
-ARG HOME="/opt"
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-py37_4.10.3-Linux-x86_64.sh \
-    && bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b \
-    && rm -r Miniconda3-py37_4.10.3-Linux-x86_64.sh
-ENV PATH="/opt/miniconda3/bin:${PATH}"
+COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-# butt_or_bread repository
-RUN git clone https://github.com/Kawaeee/butt_or_bread.git
+COPY . .
 
-# Download model
-RUN cd /opt/butt_or_bread/
-RUN wget https://github.com/Kawaeee/butt_or_bread/releases/download/v1.2/buttbread_resnet152_3.h5
+RUN wget https://github.com/Kawaeee/butt_or_bread/releases/download/v1.3/buttbread_resnet152_3.h5
 
-# Install python packages
-RUN pip install --upgrade pip
-RUN pip install -r /opt/butt_or_bread/requirements.txt --no-cache-dir
-
-# House-keeping
-RUN conda clean -a -y
-RUN pip cache purge
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN apt autoclean
-RUN apt autoremove
-
-ENV HOME="/root"
-
-ENTRYPOINT ["streamlit", "run", "/opt/butt_or_bread/streamlit_app.py"]
+ENTRYPOINT ["streamlit", "run", "/app/streamlit_app.py"]
