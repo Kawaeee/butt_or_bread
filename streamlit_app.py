@@ -10,7 +10,6 @@ from butt_or_bread.utils import health_check
 
 # Create Streamlit logger
 st_logger = get_logger(__name__)
-st.set_option("deprecation.showfileUploaderEncoding", False)
 
 # Load Streamlit configuration file
 with open("streamlit_app.json") as cfg_file:
@@ -74,7 +73,7 @@ if __name__ == "__main__":
 
     st.title(body=ui_cfg["title"])
     st.markdown(
-        body=f'{ui_cfg["markdown"]["release"]} {ui_cfg["markdown"]["star"]} {ui_cfg["markdown"]["visitor"]}',
+        body=f'{ui_cfg["markdown"]["release"]} {ui_cfg["markdown"]["star"]}',
         unsafe_allow_html=True,
     )
 
