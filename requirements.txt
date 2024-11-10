@@ -1,7 +1,7 @@
 streamlit==1.37.0
 psutil==5.9.5
 requests==2.32.0
-torch==2.2.0
-torchvision==0.15.1
+torch==2.5.1
+torchvision==0.20.1
 Pillow==10.3.0
 tqdm==4.66.3

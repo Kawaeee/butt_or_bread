@@ -52,7 +52,7 @@ class ButtBreadClassifier:
             torch.nn.Linear(128, 2),
         ).to(self.device)
 
-        self.model.load_state_dict(torch.load(self.model_name, map_location=self.device))
+        self.model.load_state_dict(torch.load(self.model_name, map_location=self.device, weights_only=True))
         self.model.eval()
 
         return self.model
